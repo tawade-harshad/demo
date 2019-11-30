@@ -1,7 +1,8 @@
-package com.example.demo.entity;
+package com.stays.hotelmanagement.entity;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -28,35 +29,19 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private Roles role;
 
-    @Column(name="ADD_BLDG_FLAT", nullable = false)
-    private String addressBldgFlat;
-
-    @Column(name="ADD_STREET" , nullable = false)
-    private String addressStreet;
-
-    @Column(name="ADD_CITY" , nullable = false)
-    private String addressCity;
-
-    @Column(name="ADD_STATE" , nullable = false)
-    private String addressState;
-
-    @Column(name="ADD_PINCODE" , nullable = false)
-    private String addressPincode;
-
-    @Column(name="MOBILE_NO" , nullable = false)
-    private String mobileNo;
-
-    @Column(name="PRIMARY_PHONE")
-    private String primaryPhone;
-
-    @Column(name="SECONDARY_PHONE")
-    private String secondaryPhone;
-
     @Column(name="EMAIL" , nullable = false)
     private String email;
 
-    @Column(name="WORK_LOCATION" , nullable = false)
+    @Column(name="WORK_LOCATION", nullable = false)
     private String workLocation;
+
+    @OneToMany(mappedBy = "Users", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+    /*@JoinColumn(referencedColumnName = "ADDRESS_ID", nullable = false)*/
+    private Set<Address> addresses;
+
+    @OneToMany(mappedBy = "Users", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+    /*@JoinColumns(name= nullable = false)*/
+    private Set<Contact> contacts;
 
     public enum Roles {
         ADMIN, EMPLOYEE, USER
