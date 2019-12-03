@@ -12,36 +12,34 @@ import java.util.Set;
 public class Users {
 
     @Id
-    @Column(name="USER_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String userId;
 
-    @Column(name="USER_NAME", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String userName;
 
-    @Column(name="PASSWORD", nullable = false)
+    @Column(nullable = false)
     private String password;
 
-    @Column(name="FULL_NAME", nullable = false)
+    @Column(nullable = false)
     private String fullName;
 
-    @Column(name="ROLE", nullable = false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Roles role;
 
-    @Column(name="EMAIL" , nullable = false)
+    @Column(nullable = false)
     private String email;
 
-    @Column(name="WORK_LOCATION", nullable = false)
+    @Column(nullable = false)
     private String workLocation;
 
-    @OneToMany(mappedBy = "Users", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
-    /*@JoinColumn(referencedColumnName = "ADDRESS_ID", nullable = false)*/
-    private Set<Address> addresses;
+    @Embedded
+    private Address addresses;
 
-    @OneToMany(mappedBy = "Users", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
-    /*@JoinColumns(name= nullable = false)*/
-    private Set<Contact> contacts;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="userId")
+    private Set<Bookings> bookings;
 
     public enum Roles {
         ADMIN, EMPLOYEE, USER
