@@ -21,7 +21,7 @@ public class Bookings {
     @Column(nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private Date bookedToDate;
 
-    @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
+    @Column(nullable = false, columnDefinition = "INT DEFAULT 1")
     private int daysBooked;
 
     @Column(nullable = false)
@@ -32,7 +32,7 @@ public class Bookings {
     @Temporal(TemporalType.TIMESTAMP)
     private Date checkOutDateTime;
 
-    @Column(nullable = false, columnDefinition = "DOUBLE(10,2) DEFAULT 000.00")
+    @Column(nullable = false, precision = 10, scale = 2, columnDefinition = "FLOAT DEFAULT 0.0")
     private double bookingAmount;
 
     @Column(nullable = false, columnDefinition = "INT DEFAULT 1")
@@ -46,9 +46,6 @@ public class Bookings {
 
     @Column(nullable = false)
     private String bookingStatus;
-
-   /* @Column(nullable = false)
-    private String userId;*/
 
     @Column(nullable = false)
     private String hotelId;
